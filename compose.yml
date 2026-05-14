@@ -1,0 +1,9 @@
+services:
+  gxsio:
+    build:
+      context: .
+      dockerfile: apps/gxsio/Dockerfile
+    env_file:
+      - apps/gxsio/.env
+    ports:
+      - "3000:3000"
