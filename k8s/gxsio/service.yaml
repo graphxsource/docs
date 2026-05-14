@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gxsio-docs-svc
+  namespace: docs
+  labels:
+    app: gxsio-docs
+spec:
+  type: ClusterIP
+  selector:
+    app: gxsio-docs
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000

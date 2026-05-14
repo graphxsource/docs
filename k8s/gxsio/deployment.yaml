@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gxsio-docs
+  namespace: docs
+  labels:
+    app: gxsio-docs
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gxsio-docs
+  template:
+    metadata:
+      labels:
+        app: gxsio-docs
+    spec:
+      imagePullSecrets:
+        - name: acr-secret
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+              - matchExpressions:
+                  - key: kubernetes.azure.com/mode
+                    operator: In
+                    values:
+                      - user
+      containers:
+        - name: gxsio-docs
+          image: gxsregistrycontainer.azurecr.io/gxsio-docs:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: production
+            - name: PORT
+              value: '3000'
+            - name: OPENROUTER_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gxsio-docs-secrets
+                  key: OPENROUTER_API_KEY
+          resources:
+            requests:
+              cpu: '50m'
+              memory: '128Mi'
+            limits:
+              cpu: '80m'
+              memory: '180Mi'
