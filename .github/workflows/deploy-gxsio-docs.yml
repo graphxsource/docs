@@ -55,7 +55,7 @@ jobs:
       contents: write
 
     env:
-      MANIFEST_PATH: k8s/gxsio/deployment.yaml
+      MANIFEST_PATH: k8s/gxsio-docs/deployment.yaml
       IMAGE_NAME: gxsio-docs
 
     steps:
