@@ -1,0 +1,23 @@
+---
+title: MCP Server Connection
+description: MCP Server for agents integrating GraphxServer IO
+icon: wand-sparkles
+---
+
+## MCP Server Link
+
+https://mcp.api.graphxserver.io/mcp
+
+## Required Headers
+
+Use these headers when connecting to the MCP endpoint:
+
+```http
+X-GraphX-CompanyName: <Your company name>
+X-GraphX-EndPointsUserName: <Your GraphxServerIO username>
+X-GraphX-EndPointsPassword: <Your GraphxServerIO password>
+Accept: application/json, text/event-stream
+Content-Type: application/json
+```
+
+These credentials are never touched by the LLM. They are used only for authentication to allow a connection through to the MCP server.
