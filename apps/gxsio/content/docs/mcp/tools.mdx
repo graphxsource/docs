@@ -1,0 +1,251 @@
+---
+title: MCP Tools
+description: Overview of the 3 tools currently exposed by the GraphxServer MCP
+icon: wrench
+---
+
+## Tools Overview
+
+This MCP currently exposes the following tools.
+
+## Create Single Mockup
+
+**Name:** `Create Single Mockup` (`create_single_mockup`)
+
+**Purpose:**
+It allows the creation of a single mockup by providing the full payload that would be sent to the usual **Create Single Mockup** endpoint on the GraphxServer API
+
+**Input (example):**
+
+```json
+{
+  "mockupRequestType": "Standard",
+  "PONumber": "PO1234",
+  "OutputFileFormat": "webp",
+  "pdfPageSize": {
+    "height": 0,
+    "width": 0
+  },
+  "ShowBoundingBox": true,
+  "mockupRequestOrderProduct": [
+    {
+      "supplierId": "50",
+      "ProductPartId": "B00445507",
+      "ProductViewId": 1,
+      "mockupRequestOrderProductLocation": [
+        {
+          "LocationName": "Full Front",
+          "artURL": "https://graphxserveriodemo.blob.core.windows.net/graphxserverio/GraphXServerIO_2710202506_15_361706AM.gif",
+          "instructions": "",
+          "heightInc": 5,
+          "widthInc": 4.5,
+          "decorationMethod": "Silk Screen",
+          "effects": {
+            "embroidery": true,
+            "removeBackground": true,
+            "removeAllWhite": false,
+            "removeWhiteBackground": false
+          },
+          "gridLines": {
+            "left": false,
+            "bottom": false,
+            "top": false,
+            "right": false
+          }
+        },
+        {
+          "LocationName": "Left Chest",
+          "artURL": "https://graphxserveriodemo.blob.core.windows.net/graphxserverio/GraphXServerIO_1002202511_49_290562PM.png",
+          "instructions": "",
+          "heightInc": 3,
+          "widthInc": 2.7,
+          "decorationMethod": "Silk Screen",
+          "effects": {
+            "embroidery": false,
+            "removeBackground": false,
+            "removeAllWhite": false,
+            "removeWhiteBackground": false
+          },
+          "gridLines": {
+            "left": false,
+            "bottom": false,
+            "top": false,
+            "right": false
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Output (placeholder):**
+
+```json
+{
+  "tObject": {
+    "orderID": 107709,
+    "mockupOrderNumber": "MCKP-ML0NSII6",
+    "outsourcedMockupOrderNumber": "BOBN-090E5CC8",
+    "outsourcedMockupOrderId": 3768380,
+    "mockupOrderStatus": "Processed",
+    "mockupRequestOrderProductExternalResponse": [
+      {
+        "productTemplateOrderNumber": "PDTP-ML0NSIID",
+        "outsourcedProductTemplateOrderNumber": null,
+        "outsourcedProductTemplateOrderId": 0,
+        "productViewId": 45828,
+        "productViewName": "Front",
+        "standardDecoratedProductURL": "https://graphxserverioproduction.blob.core.windows.net/actiontapesinc/actiontapesinc3001202603_06_456099AM.png",
+        "premiumDecoratedProductURL": null,
+        "productTemplateOrderStatus": "Processed",
+        "mockupRequestOrderProductLocationExternalResponse": [
+          {
+            "artOrderNumber": "ART-ML0NSIIE",
+            "outsourcedOrderReferenceNumber": null,
+            "outsourcedArtOrderId": 0,
+            "artOrderStatus": "Processed",
+            "artURL": "https://graphxserverioproduction.blob.core.windows.net/actiontapesinc/ActionTapesInc._3001202603_06_405273AM.jpg"
+          },
+          {
+            "artOrderNumber": "ART-ML0NSIL3",
+            "outsourcedOrderReferenceNumber": null,
+            "outsourcedArtOrderId": 0,
+            "artOrderStatus": "Processed",
+            "artURL": "https://graphxserverioproduction.blob.core.windows.net/actiontapesinc/ActionTapesInc._3001202603_06_406443AM.gif"
+          }
+        ]
+      }
+    ]
+  },
+  "tObjectLst": null,
+  "tObjectList": null,
+  "status": "1",
+  "errorCode": null,
+  "errorMessage": "",
+  "extraData": "Your Mock-up Order has been placed successfully, Thank you!!",
+  "error": null
+}
+```
+
+## Create Multiple Mockups
+
+**Name:** `Create Multiple Mockups` (`create_multiple_mockups`)
+
+**Purpose:**
+Create mockups for multiple views of a single product, generating one mockup output per view.
+
+**Input (example):**
+
+```json
+{
+  "mockupRequestType": "Standard",
+  "PONumber": "PO1234",
+  "OutputFileFormat": "png",
+  "mockupOrderProduct": {
+    "productPartID": "B00445507",
+    "supplierID": "50",
+    "mockupRequestOrderProductViews": [
+      {
+        "productViewID": 1,
+        "mockupRequestOrderProductViewLocations": [
+          {
+            "LocationName": "Full Front",
+            "artURL": "https://example.com/artwork-front.png",
+            "instructions": "",
+            "heightInc": 5,
+            "widthInc": 4.5,
+            "embroidery": false,
+            "removeBackground": true
+          }
+        ]
+      },
+      {
+        "productViewID": 2,
+        "mockupRequestOrderProductViewLocations": [
+          {
+            "LocationName": "Back",
+            "artURL": "https://example.com/artwork-back.png"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**Output (placeholder):**
+
+```json
+{
+  "tObject": {
+    "orderID": 18520,
+    "mockupOrderNumber": "MCKP-M5VZYW94",
+    "outsourcedMockupOrderNumber": "SUND-4411A21A",
+    "outsourcedMockupOrderID": 115203,
+    "mockupOrderStatus": "Processed",
+    "mockupOrderProductResponse": {
+      "productTemplateOrderNumber": "PDTP-M5VZYW9C",
+      "productTemplateOrderStatus": "Processed",
+      "outsourcedProductTemplateOrderNumber": null,
+      "outsourcedProductTemplateOrderID": 0,
+      "mockupRequestOrderProductViewResponse": [
+        {
+          "standardDecoratedProductURL": "Output can be received after the mock-up order is invoiced.",
+          "premiumDecoratedProductURL": null,
+          "mockupRequestOrderProductViewLocationResponse": [
+            {
+              "artOrderNumber": "ART-M5VZYWAR",
+              "outsourcedArtOrderReferenceNumber": null,
+              "outsourcedArtOrderID": 0,
+              "artOrderStatus": "Processed",
+              "artURL": "https://graphxserveriodemo.blob.core.windows.net/artcust1/Art_Cust1_1301202510_53_077319PM.png"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "tObjectLst": null,
+  "status": "1",
+  "errorCode": null,
+  "errorMessage": "",
+  "extraData": "Your Mock-up Order has been placed successfully, Thank you!!",
+  "error": null
+}
+```
+
+## Get Product Views
+
+**Name:** `Get Product Views` (`get_product_views`)
+
+**Purpose:**
+Retrieve the available product views (angles) for a product part, used for mockup alignment.
+
+**Input (example):**
+
+```json
+{
+  "productPartId": "B00445507",
+  "supplierId": "50"
+}
+```
+
+**Output (placeholder):**
+
+```json
+{
+  "tObject": [
+    {
+      "id": 38,
+      "title": "1-M0-TShirts-WH"
+    }
+  ],
+  "tObjectLst": null,
+  "status": "1",
+  "errorCode": null,
+  "errorMessage": null,
+  "extraData": null,
+  "error": null
+}
+```
