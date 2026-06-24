@@ -28,7 +28,7 @@ spec:
                       - user
       containers:
         - name: gxsio-docs
-          image: gxsregistrycontainer.azurecr.io/gxsio-docs:v45a0415
+          image: gxsregistrycontainer.azurecr.io/gxsio-docs:v834a784
           ports:
             - containerPort: 3000
           env:
