@@ -1,0 +1,379 @@
+{
+  "MockupPdfPageSizeDto": {
+    "type": "object",
+    "properties": {
+      "height": {
+        "type": "number",
+        "example": 0
+      },
+      "width": {
+        "type": "number",
+        "example": 0
+      }
+    }
+  },
+  "MockupLocationEffectsDto": {
+    "type": "object",
+    "properties": {
+      "embroidery": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeBackground": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeAllWhite": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeWhiteBackground": {
+        "type": "boolean",
+        "example": false
+      }
+    }
+  },
+  "MockupLocationGridLinesDto": {
+    "type": "object",
+    "properties": {
+      "left": {
+        "type": "boolean",
+        "example": false
+      },
+      "bottom": {
+        "type": "boolean",
+        "example": false
+      },
+      "top": {
+        "type": "boolean",
+        "example": false
+      },
+      "right": {
+        "type": "boolean",
+        "example": false
+      }
+    },
+    "required": ["left", "bottom", "top", "right"]
+  },
+  "MockupRequestOrderProductLocationDto": {
+    "type": "object",
+    "properties": {
+      "LocationName": {
+        "type": "string",
+        "example": "Full Front"
+      },
+      "artURL": {
+        "type": "string",
+        "example": "https://graphxsourcestore.blob.core.windows.net/graphxsourcecontainer/Demo1511201804_28_372355PM.jpg"
+      },
+      "instructions": {
+        "type": "string",
+        "example": "",
+        "deprecated": true,
+        "description": "Deprecated: the artist workflow it fed no longer exists. Accepted and ignored."
+      },
+      "decorationMethod": {
+        "type": "object",
+        "example": "Digital Color Print",
+        "nullable": true,
+        "description": "Decoration method of the location, as named in the supplier catalog (case-insensitive). The mockup is rendered with the size and position of that decoration. Optional for Standard and Premium: without it, a Premium mockup uses the base Premium map of the view."
+      },
+      "heightInc": {
+        "type": "number",
+        "example": 3
+      },
+      "widthInc": {
+        "type": "number",
+        "example": 2.7
+      },
+      "effects": {
+        "$ref": "#/components/schemas/MockupLocationEffectsDto"
+      },
+      "gridLines": {
+        "$ref": "#/components/schemas/MockupLocationGridLinesDto"
+      },
+      "drawSmartBackground": {
+        "type": "boolean",
+        "example": true
+      },
+      "backgroundColor": {
+        "type": "string",
+        "example": "#c92490"
+      }
+    },
+    "required": ["LocationName", "artURL"]
+  },
+  "MockupRequestOrderProductDto": {
+    "type": "object",
+    "properties": {
+      "ProductPartId": {
+        "type": "string",
+        "example": "1-M0-TShirts-WH"
+      },
+      "supplierId": {
+        "type": "string",
+        "example": "7"
+      },
+      "ProductViewId": {
+        "type": "number",
+        "example": 0
+      },
+      "mockupRequestOrderProductLocation": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MockupRequestOrderProductLocationDto"
+        }
+      }
+    },
+    "required": [
+      "ProductPartId",
+      "supplierId",
+      "mockupRequestOrderProductLocation"
+    ]
+  },
+  "GetProductMockupRequestExternalDto": {
+    "type": "object",
+    "properties": {
+      "CompanyName": {
+        "type": "string",
+        "example": "Action Tapes Inc."
+      },
+      "mockupRequestType": {
+        "type": "string",
+        "example": "Standard",
+        "enum": ["Standard", "Premium"],
+        "description": "Standard or Premium (case-insensitive). Premium needs a product view with a Premium template; decorationMethod is optional in both."
+      },
+      "PONumber": {
+        "type": "string",
+        "example": "PO1234"
+      },
+      "OutputFileFormat": {
+        "type": "string",
+        "example": "",
+        "description": "png (default), jpg, jpeg, webp or pdf. Empty means png."
+      },
+      "pdfPageSize": {
+        "$ref": "#/components/schemas/MockupPdfPageSizeDto"
+      },
+      "ShowBoundingBox": {
+        "type": "boolean",
+        "example": false
+      },
+      "measurementFormat": {
+        "type": "string",
+        "example": "",
+        "description": "decimal (default) or fraction. Only used with ShowBoundingBox: true."
+      },
+      "upscaleTo": {
+        "type": "number",
+        "example": 1,
+        "minimum": 1,
+        "maximum": 4
+      },
+      "mockupRequestOrderProduct": {
+        "maxItems": 1,
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MockupRequestOrderProductDto"
+        }
+      }
+    },
+    "required": [
+      "CompanyName",
+      "mockupRequestType",
+      "mockupRequestOrderProduct"
+    ]
+  },
+  "MultiViewPdfPageSizeDto": {
+    "type": "object",
+    "properties": {
+      "height": {
+        "type": "number",
+        "example": 0
+      },
+      "width": {
+        "type": "number",
+        "example": 0
+      }
+    }
+  },
+  "MultiViewLocationEffectsDto": {
+    "type": "object",
+    "properties": {
+      "embroidery": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeBackground": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeAllWhite": {
+        "type": "boolean",
+        "example": false
+      },
+      "removeWhiteBackground": {
+        "type": "boolean",
+        "example": false
+      }
+    }
+  },
+  "MultiViewLocationGridLinesDto": {
+    "type": "object",
+    "properties": {
+      "left": {
+        "type": "boolean",
+        "example": false
+      },
+      "bottom": {
+        "type": "boolean",
+        "example": false
+      },
+      "top": {
+        "type": "boolean",
+        "example": false
+      },
+      "right": {
+        "type": "boolean",
+        "example": false
+      }
+    },
+    "required": ["left", "bottom", "top", "right"]
+  },
+  "MultiViewProductViewLocationDto": {
+    "type": "object",
+    "properties": {
+      "locationName": {
+        "type": "string",
+        "example": "Left Chest"
+      },
+      "artURL": {
+        "type": "string",
+        "example": "https://graphxserveriodemo.blob.core.windows.net/artcust1/Art_Cust1_0111202306_26_179364AM.png"
+      },
+      "instructions": {
+        "type": "string",
+        "example": "",
+        "deprecated": true,
+        "description": "Deprecated: the artist workflow it fed no longer exists. Accepted and ignored."
+      },
+      "decorationMethod": {
+        "type": "object",
+        "example": "Digital Color Print",
+        "nullable": true,
+        "description": "Decoration method of the location, as named in the supplier catalog (case-insensitive). The mockup is rendered with the size and position of that decoration. Optional for Standard and Premium: without it, a Premium mockup uses the base Premium map of the view."
+      },
+      "heightInc": {
+        "type": "number",
+        "example": 3
+      },
+      "widthInc": {
+        "type": "number",
+        "example": 2.7
+      },
+      "effects": {
+        "$ref": "#/components/schemas/MultiViewLocationEffectsDto"
+      },
+      "gridLines": {
+        "$ref": "#/components/schemas/MultiViewLocationGridLinesDto"
+      },
+      "drawSmartBackground": {
+        "type": "boolean",
+        "example": true
+      },
+      "backgroundColor": {
+        "type": "string",
+        "example": "#c92490"
+      }
+    },
+    "required": ["locationName", "artURL"]
+  },
+  "MultiViewProductViewDto": {
+    "type": "object",
+    "properties": {
+      "productViewID": {
+        "type": "number",
+        "example": 38,
+        "minimum": 1
+      },
+      "mockupRequestOrderProductViewLocations": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MultiViewProductViewLocationDto"
+        }
+      }
+    },
+    "required": ["productViewID", "mockupRequestOrderProductViewLocations"]
+  },
+  "MultiViewMockupOrderProductDto": {
+    "type": "object",
+    "properties": {
+      "productPartID": {
+        "type": "string",
+        "example": "1-M0-TShirts-WH"
+      },
+      "supplierID": {
+        "type": "number",
+        "example": 7
+      },
+      "mockupRequestOrderProductViews": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/MultiViewProductViewDto"
+        }
+      }
+    },
+    "required": [
+      "productPartID",
+      "supplierID",
+      "mockupRequestOrderProductViews"
+    ]
+  },
+  "CreateMockupOrderForMultipleViewsDto": {
+    "type": "object",
+    "properties": {
+      "companyName": {
+        "type": "string",
+        "example": "Action Tapes Inc."
+      },
+      "mockupRequestType": {
+        "type": "string",
+        "example": "Standard",
+        "enum": ["Standard", "Premium"],
+        "description": "Standard or Premium (case-insensitive). Premium needs a product view with a Premium template; decorationMethod is optional in both."
+      },
+      "PONumber": {
+        "type": "string",
+        "example": "PO12334"
+      },
+      "OutputFileFormat": {
+        "type": "string",
+        "example": "jpg",
+        "description": "png (default), jpg, jpeg, webp or pdf. Empty means png."
+      },
+      "pdfPageSize": {
+        "$ref": "#/components/schemas/MultiViewPdfPageSizeDto"
+      },
+      "ShowBoundingBox": {
+        "type": "boolean",
+        "example": false
+      },
+      "measurementFormat": {
+        "type": "string",
+        "example": "",
+        "description": "decimal (default) or fraction. Only used with ShowBoundingBox: true."
+      },
+      "upscaleTo": {
+        "type": "number",
+        "example": 1,
+        "minimum": 1,
+        "maximum": 4
+      },
+      "mockupOrderProduct": {
+        "$ref": "#/components/schemas/MultiViewMockupOrderProductDto"
+      }
+    },
+    "required": ["companyName", "mockupRequestType", "mockupOrderProduct"]
+  }
+}
