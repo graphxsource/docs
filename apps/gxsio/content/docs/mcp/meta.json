@@ -1,6 +1,6 @@
 {
   "title": "MCP Server",
-  "icon": "wand-sparkles",
+  "icon": "WandSparkles",
   "pages": ["mcp","tools"],
   "defaultOpen": true,
   "root": true

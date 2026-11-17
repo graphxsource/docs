@@ -1,0 +1,100 @@
+---
+title: GXSIO API reference
+description: Browse the GXSIO public API's endpoints, try requests with an organization API key, and see where the API differs from its schema.
+---
+
+The pages in this section render the GXSIO API's OpenAPI schema as an interactive reference. Open an endpoint group to see its parameters, response schemas and code samples, or send a request from the playground.
+
+<Cards>
+  <Card title="V2 location aliases" href="/docs/api/v2/location-aliases" description="List, create, rename and delete aliases for a product view's locations." />
+  <Card title="V1 product mockup requests" href="/docs/api/v1/product-mockup-requests" description="Products, parts, views, suppliers, and mockup orders with their status." />
+  <Card title="V1 product lines" href="/docs/api/v1/product-lines" description="Product lines and the base colors available to them." />
+  <Card title="V1 location aliases" href="/docs/api/v1/location-aliases" description="The legacy location alias contract. New integrations should use V2." />
+</Cards>
+
+The [health checks](/docs/api/health) and the deprecated [V1 security](/docs/api/v1/security) endpoint are in the sidebar.
+
+## Base URL
+
+```text
+https://dev.api.graphxserver.io/api
+```
+
+Every path in this reference is relative to that URL, including its `/api` prefix. V1 paths start with another `/api`, so a V1 request has it twice. That's correct, not a typo.
+
+| Path in the reference | Full URL |
+| --- | --- |
+| `/health` | `https://dev.api.graphxserver.io/api/health` |
+| `/api/ProductLine/GetAllProductColors` | `https://dev.api.graphxserver.io/api/api/ProductLine/GetAllProductColors` |
+| `/v2/location-aliases/{id}` | `https://dev.api.graphxserver.io/api/v2/location-aliases/{id}` |
+
+## Authenticate
+
+Send an organization API key in the `Authorization` header. Create one by following [Create and manage API keys](../api-keys/index.mdx).
+
+```bash
+curl "https://dev.api.graphxserver.io/api/api/ProductMockupRequest/GetSuppliersForCompany?companyname=Acme" \
+  --header "Authorization: Bearer $GXS_API_KEY"
+```
+
+The key decides which company's data you see. A request for a record that belongs to another company fails with "does not belong to your company". Load the key from your secret store and keep it out of shell history, code and logs.
+
+Every endpoint except the three health checks needs this header. Without it, the API answers `401` with "Missing Authorization header". The schema only declares authentication on the V2 endpoints, but the V1 endpoints need it too, so this reference marks them as requiring it.
+
+## V1 and V2
+
+V1 copies the contract of the older GraphxServer.io API so existing integrations keep working. Its paths are PascalCase, such as `GetProductListForCustomer`, and successful responses wrap their data in a `tObject` field.
+
+```json
+{
+  "tObject": [
+    { "id": 1, "title": "PCNA" },
+    { "id": 7, "title": "GraphXSource" }
+  ]
+}
+```
+
+The schema doesn't describe V1 response bodies, so the reference shows them as "Empty". Use the playground to see a real response.
+
+V2 uses resource-style paths such as `/v2/location-aliases/{id}`. V2 includes location aliases and lifestyle image generation. If you're starting a new integration and V2 covers what you need, use V2.
+
+Some V1 endpoints exist in the schema but aren't built yet. They answer `501` with the code `GXSIO.ENDPOINT_NOT_IMPLEMENTED`. In the development environment this includes `GetAllProductLines` and `GetGraphXServerAPIToken`.
+
+## Errors
+
+Errors come back as JSON problem details with a matching HTTP status.
+
+```json
+{
+  "type": "https://graphxserver.io/problems/unprocessable",
+  "title": "Unprocessable request",
+  "status": 422,
+  "detail": "A product identifier is required",
+  "instance": "/api/ProductMockupRequest/GetProductPartDetails",
+  "code": "GXS.UNPROCESSABLE",
+  "traceId": "5c8dc4d33be2623..."
+}
+```
+
+Include the `traceId` when you report a problem. It lets the API team find the request in their logs.
+
+The schema's description says V1 returns business errors as HTTP `200`. That isn't what the development API did when this page was written. Missing parameters, unknown records and unbuilt endpoints all returned `400`, `404`, `422` and `501`. Check the status code, and don't treat every `200` as a success until the API team confirms which behavior is intended.
+
+## Use the playground
+
+The playground sends real requests to the development API from your browser. Paste an API key into the authorization field, and use a key from a test organization. `POST`, `PATCH` and `DELETE` requests change data.
+
+Endpoint summaries and descriptions are in Spanish because they come straight from the API's source code. This reference shows them unchanged.
+
+Some query parameters, such as `CustomerName` and `CompanyName`, are marked required. In testing, `GetProductListForCustomer` returned the key's own products without `CustomerName`, so the key seems to decide the company. Send these parameters anyway until the API team says they can be dropped.
+
+## Live reference and schema
+
+- [Live Swagger UI](https://dev.api.graphxserver.io/api/api)
+- [Live OpenAPI JSON](https://dev.api.graphxserver.io/api/api-json)
+- [Schema snapshot used by these pages](/openapi/gxsio.json)
+
+The snapshot was downloaded from the development API on November 5, 2026. The live API can change before these pages are refreshed.
+
+The downloaded schema has no `servers` entry, doesn't define the `bearer` scheme its V2 operations use, and doesn't declare authentication on V1. This reference fills those gaps when it renders the pages. The snapshot includes only the public API-key authentication description.
+

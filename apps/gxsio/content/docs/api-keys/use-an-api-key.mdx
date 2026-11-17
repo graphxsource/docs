@@ -1,0 +1,30 @@
+---
+title: Use an API key
+description: Authenticate GraphxServer.io API requests with an organization API key.
+---
+
+The GraphxServer.io API accepts an organization API key directly in the `Authorization` header. [Create a key](/docs/api-keys) in the same environment as the API you plan to call.
+
+## Send a request
+
+Load `GXS_API_KEY` from your secret store, then send it as a Bearer credential. This example calls the development API.
+
+```bash
+curl --fail-with-body \
+  "https://dev.api.graphxserver.io/api/api/ProductMockupRequest/GetSuppliersForCompany?companyname=Acme" \
+  --header "Authorization: Bearer $GXS_API_KEY"
+```
+
+Replace `Acme` with your company name. Keep the `/api/api/` prefix for this V1 endpoint. The [API reference](/docs/api#base-url) explains how the base URL combines with V1 and V2 paths.
+
+The key determines which company's data you can access. Requests for another company's records fail. Keep the secret in server code or scripts, and never expose it in a browser app or logs.
+
+## Handle authentication errors
+
+A request without the authorization header returns `401`. If a previously working key fails, check that it belongs to the right environment and has not expired, been revoked, or been replaced during rotation.
+
+[Key management](/docs/api-keys#change-rotate-or-retire-a-key) explains how to rotate and revoke keys, including the delay before an old key stops working.
+
+## Explore endpoints
+
+Browse the [API reference](/docs/api) for products, mockup requests, location aliases, lifestyle images, and health checks. Its playground sends real requests to the development API. Use a test organization's key when trying operations that change data.
