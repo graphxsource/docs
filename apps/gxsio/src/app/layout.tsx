@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://docs.graphxserver.io'),
   title: 'GraphxServer.io documentation',
   description:
-    'API keys, API reference, and MCP tools for GraphxServer.io integrations.',
+    'API keys and API reference for GraphxServer.io integrations.',
   icons: {
     icon: '/favicon.svg',
   },

@@ -1,17 +1,11 @@
-import {
-  ArrowRight,
-  BookOpen,
-  Braces,
-  KeyRound,
-  WandSparkles,
-} from "lucide-react";
+import { ArrowRight, BookOpen, Braces, KeyRound } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "GraphxServer.io documentation",
   description:
-    "API keys, API reference, and MCP tools for GraphxServer.io integrations.",
+    "API keys and API reference for GraphxServer.io integrations.",
 };
 
 const sections = [
@@ -31,14 +25,6 @@ const sections = [
     linkLabel: "Browse API reference",
     icon: Braces,
   },
-  {
-    title: "MCP tools",
-    description:
-      "Connect an agent to GraphxServer.io to create mockups and retrieve product views.",
-    href: "/docs/mcp/mcp",
-    linkLabel: "Connect to MCP",
-    icon: WandSparkles,
-  },
 ];
 
 const startingPoints = [
@@ -51,11 +37,6 @@ const startingPoints = [
     label: "Work with products and mockups",
     detail: "V1 API reference",
     href: "/docs/api/v1/product-mockup-requests",
-  },
-  {
-    label: "Create mockups with an agent",
-    detail: "MCP tool inputs and responses",
-    href: "/docs/mcp/tools",
   },
 ];
 
@@ -82,8 +63,8 @@ export default function HomePage() {
               Build with GraphxServer.io.
             </h1>
             <p className="mt-6 max-w-2xl text-pretty text-fd-muted-foreground text-lg leading-8">
-              Create API keys, explore the API, and connect agents through MCP.
-              Start with the guide that matches your integration.
+              Create API keys and explore the GraphxServer.io API. Start with
+              the guide that matches your integration.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link
@@ -113,7 +94,7 @@ export default function HomePage() {
           </h2>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-4 md:grid-cols-2">
           {sections.map((section) => {
             const Icon = section.icon;
 
@@ -145,7 +126,7 @@ export default function HomePage() {
           <div>
             <h2 className="font-semibold text-xl">Common starting points</h2>
             <p className="mt-2 text-fd-muted-foreground text-sm leading-6">
-              Start an API integration or connect an agent to the mockup tools.
+              Start an API integration to work with products and mockups.
             </p>
           </div>
 
