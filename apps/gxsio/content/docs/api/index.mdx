@@ -84,7 +84,7 @@ The schema's description says V1 returns business errors as HTTP `200`. That isn
 
 The playground sends real requests to the development API from your browser. Paste an API key into the authorization field, and use a key from a test organization. `POST`, `PATCH` and `DELETE` requests change data.
 
-Endpoint summaries and descriptions are in Spanish because they come straight from the API's source code. This reference shows them unchanged.
+Endpoint summaries, parameter descriptions, and health-check messages are manually translated into English. API paths, parameter names, and payload fields keep their original names.
 
 Some query parameters, such as `CustomerName` and `CompanyName`, are marked required. In testing, `GetProductListForCustomer` returned the key's own products without `CustomerName`, so the key seems to decide the company. Send these parameters anyway until the API team says they can be dropped.
 
@@ -96,5 +96,5 @@ Some query parameters, such as `CustomerName` and `CompanyName`, are marked requ
 
 The snapshot was downloaded from the development API on November 5, 2026. The live API can change before these pages are refreshed.
 
-The downloaded schema has no `servers` entry, doesn't define the `bearer` scheme its V2 operations use, and doesn't declare authentication on V1. This reference fills those gaps when it renders the pages. The snapshot includes only the public API-key authentication description.
+The downloaded schema has no `servers` entry, doesn't define the `bearer` scheme its V2 operations use, and doesn't declare authentication on V1. This reference fills those gaps when it renders the pages. The snapshot includes English documentation text and the public API-key authentication description.
 

@@ -3,7 +3,7 @@
   "paths": {
     "/health": {
       "get": {
-        "description": "Estado detallado, dependencia por dependencia",
+        "description": "Detailed status for each dependency",
         "operationId": "HealthController_check",
         "parameters": [],
         "responses": {
@@ -18,7 +18,7 @@
             }
           },
           "503": {
-            "description": "Postgres o Redis no disponibles",
+            "description": "Postgres or Redis is unavailable",
             "content": {
               "application/json": {
                 "schema": {
@@ -36,7 +36,7 @@
     },
     "/health/ready": {
       "get": {
-        "description": "¿Puede el servicio atender tráfico?",
+        "description": "Whether the service is ready to handle traffic",
         "operationId": "HealthController_ready",
         "parameters": [],
         "responses": {
@@ -44,7 +44,7 @@
             "description": "Service is ready"
           },
           "503": {
-            "description": "Postgres o Redis no disponibles"
+            "description": "Postgres or Redis is unavailable"
           }
         },
         "summary": "Readiness probe",
@@ -55,7 +55,7 @@
     },
     "/health/live": {
       "get": {
-        "description": "No toca dependencias: solo dice si el proceso está vivo",
+        "description": "Checks whether the process is alive without checking dependencies",
         "operationId": "HealthController_live",
         "parameters": [],
         "responses": {
@@ -76,7 +76,7 @@
           {
             "name": "EndPointsUserName",
             "in": "header",
-            "description": "Ignorado",
+            "description": "Ignored",
             "required": false,
             "schema": {
               "type": "string"
@@ -85,7 +85,7 @@
           {
             "name": "CompanyName",
             "in": "header",
-            "description": "Ignorado para autenticar",
+            "description": "Ignored for authentication",
             "required": false,
             "schema": {
               "type": "string"
@@ -94,7 +94,7 @@
           {
             "name": "EndPointsPassword",
             "in": "header",
-            "description": "API key de organización (GXS_O-*)",
+            "description": "Organization API key (GXS_O-*)",
             "required": true,
             "schema": {
               "type": "string"
@@ -106,7 +106,7 @@
             "description": ""
           }
         },
-        "summary": "Devuelve la misma API key GXS_O-* si es válida, para usarla como Bearer (deprecado)",
+        "summary": "Return the same GXS_O-* API key if valid for use as a Bearer credential (deprecated)",
         "tags": [
           "Legacy V1 - Security"
         ]
@@ -143,7 +143,7 @@
             "bearer": []
           }
         ],
-        "summary": "Lista paginada de productos del cliente",
+        "summary": "List customer products with pagination",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -163,7 +163,7 @@
             "bearer": []
           }
         ],
-        "summary": "Partes de un producto",
+        "summary": "Get product parts",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -208,7 +208,7 @@
             "bearer": []
           }
         ],
-        "summary": "Detalle de una parte de producto",
+        "summary": "Get product part details",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -253,7 +253,7 @@
             "bearer": []
           }
         ],
-        "summary": "Vistas de una parte de producto",
+        "summary": "Get product part views",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -273,7 +273,7 @@
             "bearer": []
           }
         ],
-        "summary": "Geometría de las vistas pedidas",
+        "summary": "Get geometry for the requested views",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -318,7 +318,7 @@
             "bearer": []
           }
         ],
-        "summary": "Locations de proveedor mapeadas por vista",
+        "summary": "Get supplier locations mapped to each view",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -347,7 +347,7 @@
             "bearer": []
           }
         ],
-        "summary": "Proveedores disponibles para la compañía",
+        "summary": "Get available suppliers for the company",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -367,7 +367,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea una orden de mockup de vista simple",
+        "summary": "Create a single-view mockup order",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -387,7 +387,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea una orden de mockup multi-vista",
+        "summary": "Create a multiple-view mockup order",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -407,7 +407,7 @@
             "bearer": []
           }
         ],
-        "summary": "Estado de una orden de mockup",
+        "summary": "Get mockup order status",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -427,7 +427,7 @@
             "bearer": []
           }
         ],
-        "summary": "Estado de una orden multi-vista, con regeneración",
+        "summary": "Get multiple-view mockup order status with regeneration",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -447,7 +447,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea una orden de mockup de product line",
+        "summary": "Create a product line mockup order",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -467,7 +467,7 @@
             "bearer": []
           }
         ],
-        "summary": "Estado de una orden de mockup de product line",
+        "summary": "Get product line mockup order status",
         "tags": [
           "Legacy V1 - Product Mockup Request"
         ]
@@ -496,7 +496,7 @@
             "bearer": []
           }
         ],
-        "summary": "Product lines del cliente",
+        "summary": "Get customer product lines",
         "tags": [
           "Legacy V1 - Product Line"
         ]
@@ -525,7 +525,7 @@
             "bearer": []
           }
         ],
-        "summary": "Colores base disponibles",
+        "summary": "Get available base colors",
         "tags": [
           "Legacy V1 - Product Line"
         ]
@@ -545,7 +545,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea una product line (endpoint nuevo en V1)",
+        "summary": "Create a product line (new V1 endpoint)",
         "tags": [
           "Legacy V1 - Product Line"
         ]
@@ -565,7 +565,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea un alias de location (contrato legacy)",
+        "summary": "Create a location alias (legacy contract)",
         "tags": [
           "V1 · Location aliases (compat)"
         ]
@@ -585,7 +585,7 @@
             "bearer": []
           }
         ],
-        "summary": "Actualiza alias de locations (contrato legacy)",
+        "summary": "Update location aliases (legacy contract)",
         "tags": [
           "V1 · Location aliases (compat)"
         ]
@@ -605,7 +605,7 @@
             "bearer": []
           }
         ],
-        "summary": "Borra un alias de location (contrato legacy)",
+        "summary": "Delete a location alias (legacy contract)",
         "tags": [
           "V1 · Location aliases (compat)"
         ]
@@ -653,7 +653,7 @@
             "bearer": []
           }
         ],
-        "summary": "Lista los alias de una location (contrato legacy)",
+        "summary": "List aliases for a location (legacy contract)",
         "tags": [
           "V1 · Location aliases (compat)"
         ]
@@ -667,7 +667,7 @@
             "name": "productViewId",
             "required": true,
             "in": "path",
-            "description": "Id de la vista de producto",
+            "description": "Product view ID",
             "schema": {
               "example": 251872,
               "type": "number"
@@ -1091,7 +1091,7 @@
             "bearer": []
           }
         ],
-        "summary": "Lista los alias de una location",
+        "summary": "List aliases for a location",
         "tags": [
           "v2 · Location aliases"
         ]
@@ -1103,7 +1103,7 @@
             "name": "productViewId",
             "required": true,
             "in": "path",
-            "description": "Id de la vista de producto",
+            "description": "Product view ID",
             "schema": {
               "example": 251872,
               "type": "number"
@@ -1626,7 +1626,7 @@
             "bearer": []
           }
         ],
-        "summary": "Crea un alias para una location",
+        "summary": "Create an alias for a location",
         "tags": [
           "v2 · Location aliases"
         ]
@@ -2230,7 +2230,7 @@
             "bearer": []
           }
         ],
-        "summary": "Renombra un alias o lo hace default",
+        "summary": "Rename an alias or make it the default",
         "tags": [
           "v2 · Location aliases"
         ]
@@ -2648,7 +2648,7 @@
             "bearer": []
           }
         ],
-        "summary": "Borra un alias",
+        "summary": "Delete an alias",
         "tags": [
           "v2 · Location aliases"
         ]
@@ -3253,7 +3253,7 @@
             "bearer": []
           }
         ],
-        "summary": "Cambia varios alias a la vez (por ejemplo, mover el default)",
+        "summary": "Update multiple aliases at once, such as changing the default",
         "tags": [
           "v2 · Location aliases"
         ]
@@ -3691,7 +3691,7 @@
             "bearer": []
           }
         ],
-        "summary": "Genera lifestyle shots de una imagen",
+        "summary": "Generate lifestyle shots from an image",
         "tags": [
           "v2 · Lifestyle"
         ]
@@ -4039,7 +4039,7 @@
             "bearer": []
           }
         ],
-        "summary": "Lee una generación con URLs firmadas de nuevo",
+        "summary": "Get a generation with newly signed URLs",
         "tags": [
           "v2 · Lifestyle"
         ]
@@ -4048,7 +4048,7 @@
   },
   "info": {
     "title": "gxsio-api",
-    "description": "API pública de GraphXServer.io. V1 conserva los paths PascalCase y el envelope tObject del contrato legacy en las respuestas exitosas; los errores salen como Problem Details (RFC 9457, `application/problem+json`) con el status HTTP real. Las diferencias con el legacy están en contracts/legacy/deviations.md.",
+    "description": "GraphXServer.io public API. V1 preserves PascalCase paths and the legacy tObject envelope for successful responses. Errors use Problem Details (RFC 9457, `application/problem+json`) with the corresponding HTTP status.",
     "version": "1.0",
     "contact": {}
   },
@@ -4063,7 +4063,7 @@
     },
     {
       "name": "Legacy V1",
-      "description": "Contrato legacy de la API pública"
+      "description": "Legacy public API contract"
     }
   ],
   "servers": [],

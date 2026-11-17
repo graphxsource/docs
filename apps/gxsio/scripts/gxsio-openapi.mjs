@@ -46,6 +46,25 @@ if (process.argv.includes("--refresh")) {
   if (!schema.openapi?.startsWith("3.") || !schema.paths?.["/health"]) {
     throw new Error("The GXSIO API did not return its OpenAPI schema");
   }
+  // Keep manually reviewed English prose when refreshing the upstream schema.
+  const translations = JSON.parse(
+    await readFile(new URL("./gxsio-openapi.en.json", import.meta.url), "utf8"),
+  );
+  for (const [pointer, translation] of Object.entries(translations)) {
+    const keys = pointer
+      .slice(1)
+      .split("/")
+      .map((key) => key.replace(/~1/g, "/").replace(/~0/g, "~"));
+    let target = schema;
+    for (const key of keys.slice(0, -1)) target = target?.[key];
+    const field = keys.at(-1);
+    if (!target || typeof target[field] !== "string") {
+      throw new Error(
+        `Review the English translation for changed schema field ${pointer}`,
+      );
+    }
+    target[field] = translation;
+  }
   // Public docs describe API-key authentication only.
   for (const scheme of Object.values(
     schema.components?.securitySchemes ?? {},

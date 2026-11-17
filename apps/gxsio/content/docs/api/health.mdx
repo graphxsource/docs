@@ -23,11 +23,11 @@ _openapi:
       - content: Liveness probe
         id: liveness-probe
     contents:
-      - content: Estado detallado, dependencia por dependencia
+      - content: Detailed status for each dependency
         heading: full-health-check
-      - content: ¿Puede el servicio atender tráfico?
+      - content: Whether the service is ready to handle traffic
         heading: readiness-probe
-      - content: 'No toca dependencias: solo dice si el proceso está vivo'
+      - content: Checks whether the process is alive without checking dependencies
         heading: liveness-probe
 ---
 
