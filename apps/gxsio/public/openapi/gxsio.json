@@ -1,0 +1,4452 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/health": {
+      "get": {
+        "description": "Detailed status for each dependency",
+        "operationId": "HealthController_check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Health status",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckDto"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Postgres or Redis is unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HealthCheckDto"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Full health check",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health/ready": {
+      "get": {
+        "description": "Whether the service is ready to handle traffic",
+        "operationId": "HealthController_ready",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Service is ready"
+          },
+          "503": {
+            "description": "Postgres or Redis is unavailable"
+          }
+        },
+        "summary": "Readiness probe",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/health/live": {
+      "get": {
+        "description": "Checks whether the process is alive without checking dependencies",
+        "operationId": "HealthController_live",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Service is alive"
+          }
+        },
+        "summary": "Liveness probe",
+        "tags": [
+          "Health"
+        ]
+      }
+    },
+    "/api/Security/GetGraphXServerAPIToken": {
+      "post": {
+        "operationId": "SecurityController_getGraphXServerAPIToken",
+        "parameters": [
+          {
+            "name": "EndPointsUserName",
+            "in": "header",
+            "description": "Ignored",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CompanyName",
+            "in": "header",
+            "description": "Ignored for authentication",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "EndPointsPassword",
+            "in": "header",
+            "description": "Organization API key (GXS_O-*)",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Return the same GXS_O-* API key if valid for use as a Bearer credential (deprecated)",
+        "tags": [
+          "Legacy V1 - Security"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductListForCustomer": {
+      "get": {
+        "operationId": "ProductMockupRequestController_getProductListForCustomer",
+        "parameters": [
+          {
+            "name": "CustomerName",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "Page",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List customer products with pagination",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductPartsByProductID": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductPartsByProductID",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get product parts",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductPartDetails": {
+      "get": {
+        "operationId": "ProductMockupRequestController_getProductPartDetails",
+        "parameters": [
+          {
+            "name": "ProductPartId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "supplierId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CompanyName",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get product part details",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductViews": {
+      "get": {
+        "operationId": "ProductMockupRequestController_getProductViews",
+        "parameters": [
+          {
+            "name": "ProductPartId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "supplierId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "CompanyName",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get product part views",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductViewSpecs": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductViewSpecs",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get geometry for the requested views",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetMappedSupplierLocationsForProduct": {
+      "get": {
+        "operationId": "ProductMockupRequestController_getMappedSupplierLocationsForProduct",
+        "parameters": [
+          {
+            "name": "ProductId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "supplierId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "companyname",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get supplier locations mapped to each view",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetSuppliersForCompany": {
+      "get": {
+        "operationId": "ProductMockupRequestController_getSuppliersForCompany",
+        "parameters": [
+          {
+            "name": "companyname",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get available suppliers for the company",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductMockupRequestExternal": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductMockupRequestExternal",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a single-view mockup order",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/CreateMockupOrderForMultipleViews": {
+      "post": {
+        "operationId": "ProductMockupRequestController_createMockupOrderForMultipleViews",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a multiple-view mockup order",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductMockupRequestStatus": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductMockupRequestStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get mockup order status",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetStatusForMultipleViewMockup": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getStatusForMultipleViewMockup",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get multiple-view mockup order status with regeneration",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductLineMockupRequestExternal": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductLineMockupRequestExternal",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a product line mockup order",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductMockupRequest/GetProductLineMockupRequestStatus": {
+      "post": {
+        "operationId": "ProductMockupRequestController_getProductLineMockupRequestStatus",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get product line mockup order status",
+        "tags": [
+          "Legacy V1 - Product Mockup Request"
+        ]
+      }
+    },
+    "/api/ProductLine/GetAllProductLines": {
+      "get": {
+        "operationId": "ProductLineController_getAllProductLines",
+        "parameters": [
+          {
+            "name": "customerName",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get customer product lines",
+        "tags": [
+          "Legacy V1 - Product Line"
+        ]
+      }
+    },
+    "/api/ProductLine/GetAllProductColors": {
+      "get": {
+        "operationId": "ProductLineController_getAllProductColors",
+        "parameters": [
+          {
+            "name": "customerName",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get available base colors",
+        "tags": [
+          "Legacy V1 - Product Line"
+        ]
+      }
+    },
+    "/api/ProductLine/create": {
+      "post": {
+        "operationId": "ProductLineController_createProductLine",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a product line (new V1 endpoint)",
+        "tags": [
+          "Legacy V1 - Product Line"
+        ]
+      }
+    },
+    "/api/Product/CreateLocationAlias": {
+      "post": {
+        "operationId": "LocationAliasController_create",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create a location alias (legacy contract)",
+        "tags": [
+          "V1 · Location aliases (compat)"
+        ]
+      }
+    },
+    "/api/Product/UpdateLocationAlias": {
+      "post": {
+        "operationId": "LocationAliasController_update",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update location aliases (legacy contract)",
+        "tags": [
+          "V1 · Location aliases (compat)"
+        ]
+      }
+    },
+    "/api/Product/DeleteLocationAlias": {
+      "post": {
+        "operationId": "LocationAliasController_remove",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete a location alias (legacy contract)",
+        "tags": [
+          "V1 · Location aliases (compat)"
+        ]
+      }
+    },
+    "/api/Product/FetchAllLocationAlias": {
+      "get": {
+        "operationId": "LocationAliasController_list",
+        "parameters": [
+          {
+            "name": "companyName",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "example": "PCNA Virtuals",
+              "type": "string"
+            }
+          },
+          {
+            "name": "productViewId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 251872,
+              "type": "number"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "example": 25508,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List aliases for a location (legacy contract)",
+        "tags": [
+          "V1 · Location aliases (compat)"
+        ]
+      }
+    },
+    "/v2/product-views/{productViewId}/locations/{locationId}/aliases": {
+      "get": {
+        "operationId": "LocationAliasesController_list",
+        "parameters": [
+          {
+            "name": "productViewId",
+            "required": true,
+            "in": "path",
+            "description": "Product view ID",
+            "schema": {
+              "example": 251872,
+              "type": "number"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Supplier location id (the `supplierLocationid` of GetMappedSupplierLocationsForProduct)",
+            "schema": {
+              "example": 25508,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationAliasListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LOCATION_NOT_FOUND` — Location not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-not-found",
+                      "title": "Location not found",
+                      "status": 404,
+                      "detail": "Location not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "List aliases for a location",
+        "tags": [
+          "v2 · Location aliases"
+        ]
+      },
+      "post": {
+        "operationId": "LocationAliasesController_create",
+        "parameters": [
+          {
+            "name": "productViewId",
+            "required": true,
+            "in": "path",
+            "description": "Product view ID",
+            "schema": {
+              "example": 251872,
+              "type": "number"
+            }
+          },
+          {
+            "name": "locationId",
+            "required": true,
+            "in": "path",
+            "description": "Supplier location id (the `supplierLocationid` of GetMappedSupplierLocationsForProduct)",
+            "schema": {
+              "example": 25508,
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateLocationAliasDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationAliasResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LOCATION_NOT_FOUND` — Location not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-not-found",
+                      "title": "Location not found",
+                      "status": 404,
+                      "detail": "Location not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "`GXSIO.LOCATION_ALIAS_NAME_CONFLICT` — Location alias name already in use<br>`GXSIO.LOCATION_NAME_TAKEN_ON_MAP` — Location name already used on the product view",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NAME_CONFLICT": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-name-conflict",
+                      "title": "Location alias name already in use",
+                      "status": 409,
+                      "detail": "Location alias name already in use",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NAME_CONFLICT",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  },
+                  "GXSIO.LOCATION_NAME_TAKEN_ON_MAP": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-name-taken-on-map",
+                      "title": "Location name already used on the product view",
+                      "status": 409,
+                      "detail": "Location name already used on the product view",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_NAME_TAKEN_ON_MAP",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Create an alias for a location",
+        "tags": [
+          "v2 · Location aliases"
+        ]
+      }
+    },
+    "/v2/location-aliases/{id}": {
+      "patch": {
+        "operationId": "LocationAliasesController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationAliasDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationAliasResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LOCATION_ALIAS_NOT_FOUND` — Location alias not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-not-found",
+                      "title": "Location alias not found",
+                      "status": 404,
+                      "detail": "Location alias not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "`GXSIO.LOCATION_ALIAS_NAME_CONFLICT` — Location alias name already in use<br>`GXSIO.LOCATION_NAME_TAKEN_ON_MAP` — Location name already used on the product view",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NAME_CONFLICT": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-name-conflict",
+                      "title": "Location alias name already in use",
+                      "status": 409,
+                      "detail": "Location alias name already in use",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NAME_CONFLICT",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  },
+                  "GXSIO.LOCATION_NAME_TAKEN_ON_MAP": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-name-taken-on-map",
+                      "title": "Location name already used on the product view",
+                      "status": 409,
+                      "detail": "Location name already used on the product view",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_NAME_TAKEN_ON_MAP",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "`GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED` — A location needs a default alias",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-default-required",
+                      "title": "A location needs a default alias",
+                      "status": 422,
+                      "detail": "A location needs a default alias",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Rename an alias or make it the default",
+        "tags": [
+          "v2 · Location aliases"
+        ]
+      },
+      "delete": {
+        "operationId": "LocationAliasesController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "example": 10,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": ""
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LOCATION_ALIAS_NOT_FOUND` — Location alias not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-not-found",
+                      "title": "Location alias not found",
+                      "status": 404,
+                      "detail": "Location alias not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Delete an alias",
+        "tags": [
+          "v2 · Location aliases"
+        ]
+      }
+    },
+    "/v2/location-aliases": {
+      "patch": {
+        "operationId": "LocationAliasesController_updateMany",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateLocationAliasesDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LocationAliasListResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LOCATION_ALIAS_NOT_FOUND` — Location alias not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-not-found",
+                      "title": "Location alias not found",
+                      "status": 404,
+                      "detail": "Location alias not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "`GXSIO.LOCATION_ALIAS_NAME_CONFLICT` — Location alias name already in use<br>`GXSIO.LOCATION_NAME_TAKEN_ON_MAP` — Location name already used on the product view",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_NAME_CONFLICT": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-name-conflict",
+                      "title": "Location alias name already in use",
+                      "status": 409,
+                      "detail": "Location alias name already in use",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_NAME_CONFLICT",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  },
+                  "GXSIO.LOCATION_NAME_TAKEN_ON_MAP": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-name-taken-on-map",
+                      "title": "Location name already used on the product view",
+                      "status": 409,
+                      "detail": "Location name already used on the product view",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_NAME_TAKEN_ON_MAP",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "`GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED` — A location needs a default alias<br>`GXSIO.LOCATION_ALIAS_MULTIPLE_DEFAULTS` — Only one alias per location can be the default",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-default-required",
+                      "title": "A location needs a default alias",
+                      "status": 422,
+                      "detail": "A location needs a default alias",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_DEFAULT_REQUIRED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  },
+                  "GXSIO.LOCATION_ALIAS_MULTIPLE_DEFAULTS": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/location-alias-multiple-defaults",
+                      "title": "Only one alias per location can be the default",
+                      "status": 422,
+                      "detail": "Only one alias per location can be the default",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LOCATION_ALIAS_MULTIPLE_DEFAULTS",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Update multiple aliases at once, such as changing the default",
+        "tags": [
+          "v2 · Location aliases"
+        ]
+      }
+    },
+    "/v2/lifestyle/generate": {
+      "post": {
+        "operationId": "LifestyleController_generate",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LifestyleGenerationDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LifestyleGenerationResponseDto"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "`GXS.VALIDATION_FAILED` — Validation failed",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.VALIDATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/validation-failed",
+                      "title": "Validation failed",
+                      "status": 400,
+                      "detail": "Validation failed",
+                      "instance": "/v2/…",
+                      "code": "GXS.VALIDATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "`GXSIO.LIFESTYLE_GUIDANCE_INVALID` — Invalid lifestyle generation guidance<br>`GXSIO.LIFESTYLE_IMAGE_URL_UNREACHABLE` — Lifestyle image URL could not be reached",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LIFESTYLE_GUIDANCE_INVALID": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/lifestyle-guidance-invalid",
+                      "title": "Invalid lifestyle generation guidance",
+                      "status": 422,
+                      "detail": "Invalid lifestyle generation guidance",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LIFESTYLE_GUIDANCE_INVALID",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  },
+                  "GXSIO.LIFESTYLE_IMAGE_URL_UNREACHABLE": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/lifestyle-image-url-unreachable",
+                      "title": "Lifestyle image URL could not be reached",
+                      "status": 422,
+                      "detail": "Lifestyle image URL could not be reached",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LIFESTYLE_IMAGE_URL_UNREACHABLE",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXSIO.LIFESTYLE_GENERATION_FAILED` — No lifestyle shot could be generated",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LIFESTYLE_GENERATION_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/lifestyle-generation-failed",
+                      "title": "No lifestyle shot could be generated",
+                      "status": 502,
+                      "detail": "No lifestyle shot could be generated",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LIFESTYLE_GENERATION_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Generate lifestyle shots from an image",
+        "tags": [
+          "v2 · Lifestyle"
+        ]
+      }
+    },
+    "/v2/lifestyle/generations/{generationId}": {
+      "get": {
+        "operationId": "LifestyleController_getGeneration",
+        "parameters": [
+          {
+            "name": "generationId",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LifestyleGenerationDetailResponseDto"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "`GXS.UNAUTHENTICATED` — Authentication required",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UNAUTHENTICATED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/unauthenticated",
+                      "title": "Authentication required",
+                      "status": 401,
+                      "detail": "Authentication required",
+                      "instance": "/v2/…",
+                      "code": "GXS.UNAUTHENTICATED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "`GXS.FORBIDDEN` — Forbidden",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.FORBIDDEN": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/forbidden",
+                      "title": "Forbidden",
+                      "status": 403,
+                      "detail": "Forbidden",
+                      "instance": "/v2/…",
+                      "code": "GXS.FORBIDDEN",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "`GXSIO.LIFESTYLE_GENERATION_NOT_FOUND` — Lifestyle generation not found",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXSIO.LIFESTYLE_GENERATION_NOT_FOUND": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/gxsio/lifestyle-generation-not-found",
+                      "title": "Lifestyle generation not found",
+                      "status": 404,
+                      "detail": "Lifestyle generation not found",
+                      "instance": "/v2/…",
+                      "code": "GXSIO.LIFESTYLE_GENERATION_NOT_FOUND",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "502": {
+            "description": "`GXS.UPSTREAM_FAILED` — Upstream service error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "type",
+                    "title",
+                    "status",
+                    "detail",
+                    "instance",
+                    "code",
+                    "traceId"
+                  ],
+                  "properties": {
+                    "type": {
+                      "type": "string",
+                      "format": "uri"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "integer"
+                    },
+                    "detail": {
+                      "type": "string"
+                    },
+                    "instance": {
+                      "type": "string"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "traceId": {
+                      "type": "string"
+                    },
+                    "errors": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "field",
+                          "code",
+                          "message"
+                        ],
+                        "properties": {
+                          "field": {
+                            "type": "string"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "message": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "GXS.UPSTREAM_FAILED": {
+                    "value": {
+                      "type": "https://graphxserver.io/problems/upstream-failed",
+                      "title": "Upstream service error",
+                      "status": 502,
+                      "detail": "Upstream service error",
+                      "instance": "/v2/…",
+                      "code": "GXS.UPSTREAM_FAILED",
+                      "traceId": "4bf92f3577b34da6a3ce929d0e0e4736"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Get a generation with newly signed URLs",
+        "tags": [
+          "v2 · Lifestyle"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "gxsio-api",
+    "description": "GraphXServer.io public API. V1 preserves PascalCase paths and the legacy tObject envelope for successful responses. Errors use Problem Details (RFC 9457, `application/problem+json`) with the corresponding HTTP status.",
+    "version": "1.0",
+    "contact": {}
+  },
+  "tags": [
+    {
+      "name": "Health",
+      "description": "Health check endpoints"
+    },
+    {
+      "name": "Metrics",
+      "description": "Metrics endpoints"
+    },
+    {
+      "name": "Legacy V1",
+      "description": "Legacy public API contract"
+    }
+  ],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "GXS_O-*",
+        "type": "http",
+        "description": "An organization API key (GXS_O-...) sent as Authorization: Bearer GXS_O-..."
+      }
+    },
+    "schemas": {
+      "HealthCheckDto": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "ok",
+            "enum": [
+              "ok",
+              "degraded",
+              "down"
+            ]
+          },
+          "checks": {
+            "type": "object",
+            "example": {
+              "db": "connected",
+              "redis": "connected"
+            }
+          },
+          "uptime": {
+            "type": "string",
+            "example": "3h 12m"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2025-10-17T14:30:00.000Z"
+          }
+        },
+        "required": [
+          "status",
+          "checks",
+          "uptime",
+          "timestamp"
+        ]
+      },
+      "LocationAliasResponseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 10
+          },
+          "name": {
+            "type": "string",
+            "example": "Centered on Front"
+          },
+          "isDefault": {
+            "type": "boolean",
+            "example": false
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "isDefault"
+        ]
+      },
+      "LocationAliasListResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationAliasResponseDto"
+            }
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "CreateLocationAliasDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Centered on Front",
+            "maxLength": 255
+          },
+          "isDefault": {
+            "type": "boolean",
+            "example": false,
+            "default": false
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "UpdateLocationAliasDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Centered on Front",
+            "maxLength": 255
+          },
+          "isDefault": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "LocationAliasChangeDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Centered on Front",
+            "maxLength": 255
+          },
+          "isDefault": {
+            "type": "boolean",
+            "example": true
+          },
+          "id": {
+            "type": "number",
+            "example": 10
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "UpdateLocationAliasesDto": {
+        "type": "object",
+        "properties": {
+          "aliases": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LocationAliasChangeDto"
+            }
+          }
+        },
+        "required": [
+          "aliases"
+        ]
+      },
+      "LifestyleVariationDto": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "example": "Place the product on a desk in a bright modern office.",
+            "maxLength": 2000
+          },
+          "backgroundUrl": {
+            "type": "string",
+            "example": "https://cdn.example.com/kitchen.png"
+          }
+        }
+      },
+      "LifestyleGenerationDto": {
+        "type": "object",
+        "properties": {
+          "imageUrl": {
+            "type": "string",
+            "example": "https://cdn.example.com/mug.png",
+            "description": "HTTPS URL of the product or mockup image"
+          },
+          "count": {
+            "type": "number",
+            "example": 3,
+            "minimum": 1,
+            "maximum": 16
+          },
+          "prompt": {
+            "type": "string",
+            "example": "Place the product on a wooden desk with warm natural lighting.",
+            "maxLength": 2000
+          },
+          "backgroundUrl": {
+            "type": "string",
+            "example": "https://cdn.example.com/kitchen.png"
+          },
+          "variations": {
+            "description": "Exactly `count` entries, in result order",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LifestyleVariationDto"
+            }
+          }
+        },
+        "required": [
+          "imageUrl",
+          "count"
+        ]
+      },
+      "LifestyleVariationErrorDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "GENERATION_FAILED",
+              "STORAGE_FAILED"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "example": "The lifestyle shot could not be generated."
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "LifestyleVariationResultDto": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number",
+            "example": 1,
+            "description": "1-based, in request order"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Signed read URL in the organization storage"
+          },
+          "expiresAt": {
+            "type": "string",
+            "example": "2026-11-12T12:15:00Z",
+            "description": "When `imageUrl` stops working"
+          },
+          "error": {
+            "$ref": "#/components/schemas/LifestyleVariationErrorDto"
+          }
+        },
+        "required": [
+          "index"
+        ]
+      },
+      "LifestyleGenerationResultDto": {
+        "type": "object",
+        "properties": {
+          "generationId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "3f2a6c1e-8b1d-4c39-9a57-1f0e2d3c4b5a",
+            "description": "Id of this generation, to request fresh URLs later. Missing if the record could not be saved"
+          },
+          "requestedCount": {
+            "type": "number",
+            "example": 3
+          },
+          "generatedCount": {
+            "type": "number",
+            "example": 2
+          },
+          "variations": {
+            "description": "Each entry has `imageUrl` or `error`, never both",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LifestyleVariationResultDto"
+            }
+          }
+        },
+        "required": [
+          "requestedCount",
+          "generatedCount",
+          "variations"
+        ]
+      },
+      "LifestyleGenerationResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LifestyleGenerationResultDto"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "LifestyleReadVariationErrorDto": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "enum": [
+              "GENERATION_FAILED",
+              "STORAGE_FAILED",
+              "URL_SIGN_FAILED"
+            ],
+            "description": "`URL_SIGN_FAILED`: the image exists but a fresh URL could not be created, so retrying may work"
+          },
+          "message": {
+            "type": "string",
+            "example": "The lifestyle shot could not be generated."
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ]
+      },
+      "LifestyleReadVariationResultDto": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "number",
+            "example": 1,
+            "description": "1-based, in request order"
+          },
+          "imageUrl": {
+            "type": "string",
+            "description": "Freshly signed read URL in the organization storage"
+          },
+          "expiresAt": {
+            "type": "string",
+            "example": "2026-11-17T15:04:05Z",
+            "description": "When `imageUrl` stops working"
+          },
+          "error": {
+            "$ref": "#/components/schemas/LifestyleReadVariationErrorDto"
+          }
+        },
+        "required": [
+          "index"
+        ]
+      },
+      "LifestyleGenerationDetailDto": {
+        "type": "object",
+        "properties": {
+          "generationId": {
+            "type": "string",
+            "format": "uuid",
+            "example": "3f2a6c1e-8b1d-4c39-9a57-1f0e2d3c4b5a"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2026-11-16T15:04:05.000Z"
+          },
+          "requestedCount": {
+            "type": "number",
+            "example": 3
+          },
+          "generatedCount": {
+            "type": "number",
+            "example": 2,
+            "description": "Generated and stored by the original request"
+          },
+          "variations": {
+            "description": "Generated variations come with a freshly signed `imageUrl`; failed ones keep their original error",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LifestyleReadVariationResultDto"
+            }
+          }
+        },
+        "required": [
+          "generationId",
+          "createdAt",
+          "requestedCount",
+          "generatedCount",
+          "variations"
+        ]
+      },
+      "LifestyleGenerationDetailResponseDto": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/LifestyleGenerationDetailDto"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      }
+    }
+  }
+}
