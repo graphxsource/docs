@@ -6,7 +6,7 @@ import { createOpenAPI } from "fumadocs-openapi/server";
 process.chdir(fileURLToPath(new URL("..", import.meta.url)));
 
 const schemaPath = "./public/openapi/gxsio.json";
-const schemaURL = "https://dev.api.graphxserver.io/api/api-json";
+const schemaURL = "https://api.graphxserver.io/api-json";
 
 // Upstream tag names mix "Legacy V1 -", "V1 ·" and "v2 ·" prefixes. A version
 // prefix puts the group in a `v1/` or `v2/` folder; tags without one, such as

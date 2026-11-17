@@ -1,6 +1,6 @@
 # GraphxServer.io docs app
 
-A Next.js and Fumadocs app for public GraphxServer.io documentation. Current topics cover organization API keys, the API reference, and MCP connections and tools.
+A Next.js and Fumadocs app for public GraphxServer.io documentation. Current topics cover organization API keys and the API reference. MCP documentation is preserved but hidden until it is updated.
 
 ## Run and check
 
@@ -17,7 +17,7 @@ pnpm --filter gxsio build
 - `content/docs`: Root documentation content, served at `/docs`.
 - `content/docs/api-keys`: Key creation, rotation, revocation, and request authentication.
 - `content/docs/api`: API overview and generated V1, V2, and health reference pages.
-- `content/docs/mcp`: MCP connection instructions and tool examples. Keep this folder.
+- `content/docs/mcp`: Hidden MCP connection instructions and tool examples. Keep this folder. `source.config.ts` excludes it from public routes, search, and LLM content.
 - `public/images/api-keys`: Images used by the key management guide.
 - `public/openapi/gxsio.json`: Schema snapshot used to render the API reference.
 - `src/app/(home)/page.tsx`: Landing page.
@@ -30,13 +30,13 @@ Models and contributors must update this README, the root README, the landing pa
 # Regenerate pages from the checked-in schema.
 pnpm --filter gxsio gxsio:openapi
 
-# Download the development schema and regenerate pages.
+# Download the production schema and regenerate pages.
 pnpm --filter gxsio gxsio:openapi:refresh
 ```
 
 The script writes pages to `content/docs/api`, preserving the root `/docs/api` URLs. Review refreshed schemas and generated content for public suitability before publishing. Commit the snapshot and generated pages together, and update the snapshot date in `content/docs/api/index.mdx`. Builds use the local snapshot.
 
-`src/lib/openapi.ts` supplies the development base URL and Bearer authentication requirements omitted by the upstream schema. `src/components/openapi-page.tsx` provides the interactive reference renderer.
+`src/lib/openapi.ts` supplies the production base URL and Bearer authentication requirements omitted by the upstream schema. `src/components/openapi-page.tsx` provides the interactive reference renderer.
 
 ## English API documentation
 

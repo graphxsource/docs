@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { createOpenAPI } from "fumadocs-openapi/server";
 
 const gxsioSchemaPath = "./public/openapi/gxsio.json";
-export const gxsioServerURL = "https://dev.api.graphxserver.io/api";
+export const gxsioServerURL = "https://api.graphxserver.io/";
 const openAPIMethods = ["get", "put", "post", "delete", "patch"] as const;
 
 export const openapi = createOpenAPI({
@@ -13,7 +13,7 @@ export const openapi = createOpenAPI({
       // playground sends requests to the right host with the right header.
       if (!document.servers?.length) {
         document.servers = [
-          { url: gxsioServerURL, description: "Development" },
+          { url: gxsioServerURL, description: "Production" },
         ];
       }
       // The v2 operations require a `bearer` scheme the schema never defines.

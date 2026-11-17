@@ -17,23 +17,23 @@ The [health checks](/docs/api/health) and the deprecated [V1 security](/docs/api
 ## Base URL
 
 ```text
-https://dev.api.graphxserver.io/api
+https://api.graphxserver.io/
 ```
 
-Every path in this reference is relative to that URL, including its `/api` prefix. V1 paths start with another `/api`, so a V1 request has it twice. That's correct, not a typo.
+Every path in this reference is relative to that URL. V1 paths start with `/api`, while V2 paths start with `/v2`.
 
 | Path in the reference | Full URL |
 | --- | --- |
-| `/health` | `https://dev.api.graphxserver.io/api/health` |
-| `/api/ProductLine/GetAllProductColors` | `https://dev.api.graphxserver.io/api/api/ProductLine/GetAllProductColors` |
-| `/v2/location-aliases/{id}` | `https://dev.api.graphxserver.io/api/v2/location-aliases/{id}` |
+| `/health` | `https://api.graphxserver.io/health` |
+| `/api/ProductLine/GetAllProductColors` | `https://api.graphxserver.io/api/ProductLine/GetAllProductColors` |
+| `/v2/location-aliases/{id}` | `https://api.graphxserver.io/v2/location-aliases/{id}` |
 
 ## Authenticate
 
 Send an organization API key in the `Authorization` header. Create one by following [Create and manage API keys](../api-keys/index.mdx).
 
 ```bash
-curl "https://dev.api.graphxserver.io/api/api/ProductMockupRequest/GetSuppliersForCompany?companyname=Acme" \
+curl "https://api.graphxserver.io/api/ProductMockupRequest/GetSuppliersForCompany?companyname=Acme" \
   --header "Authorization: Bearer $GXS_API_KEY"
 ```
 
@@ -82,7 +82,7 @@ The schema's description says V1 returns business errors as HTTP `200`. That isn
 
 ## Use the playground
 
-The playground sends real requests to the development API from your browser. Paste an API key into the authorization field, and use a key from a test organization. `POST`, `PATCH` and `DELETE` requests change data.
+The playground sends real requests to the production API from your browser. Paste a production API key into the authorization field. Use a test organization when trying requests. `POST`, `PATCH` and `DELETE` requests change data.
 
 Endpoint summaries, parameter descriptions, and health-check messages are manually translated into English. API paths, parameter names, and payload fields keep their original names.
 
@@ -90,8 +90,8 @@ Some query parameters, such as `CustomerName` and `CompanyName`, are marked requ
 
 ## Live reference and schema
 
-- [Live Swagger UI](https://dev.api.graphxserver.io/api/api)
-- [Live OpenAPI JSON](https://dev.api.graphxserver.io/api/api-json)
+- [Live Swagger UI](https://api.graphxserver.io/api)
+- [Live OpenAPI JSON](https://api.graphxserver.io/api-json)
 - [Schema snapshot used by these pages](/openapi/gxsio.json)
 
 The snapshot was downloaded from the development API on November 5, 2026. The live API can change before these pages are refreshed.

@@ -1,6 +1,6 @@
 # GraphxServer.io public documentation
 
-This repository contains the public docs app in `apps/gxsio`. It covers organization API keys, the GraphxServer.io API, and MCP connections and tools.
+This repository contains the public docs app in `apps/gxsio`. It covers organization API keys and the GraphxServer.io API. MCP documentation is preserved but hidden until it is updated.
 
 ## Development
 
