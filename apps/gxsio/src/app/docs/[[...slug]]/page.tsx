@@ -14,7 +14,7 @@ import { getMDXComponents } from "@/components/mdx";
 import { OpenAPIPage } from "@/components/openapi-page";
 import { openapi } from "@/lib/openapi";
 import { gitConfig } from "@/lib/shared";
-import { getPageImage, getPageMarkdownUrl, source } from "@/lib/source";
+import { getPageMarkdownUrl, source } from "@/lib/source";
 
 export default async function Page(props: PageProps<"/docs/[[...slug]]">) {
   const params = await props.params;
@@ -69,8 +69,5 @@ export async function generateMetadata(
   return {
     title: page.data.title,
     description: page.data.description,
-    openGraph: {
-      images: getPageImage(page).url,
-    },
   };
 }
