@@ -2,6 +2,7 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
 import { generateFiles } from "fumadocs-openapi";
 import { createOpenAPI } from "fumadocs-openapi/server";
+import { applyMockupBodies } from "./gxsio-openapi-overrides.mjs";
 
 process.chdir(fileURLToPath(new URL("..", import.meta.url)));
 
@@ -74,11 +75,16 @@ if (process.argv.includes("--refresh")) {
         "An organization API key (GXS_O-...) sent as Authorization: Bearer GXS_O-...";
     }
   }
+  applyMockupBodies(schema);
   await mkdir("./public/openapi", { recursive: true });
   await writeFile(schemaPath, `${JSON.stringify(schema, null, 2)}\n`);
 }
 
-const schema = JSON.parse(await readFile(schemaPath, "utf8"));
+const schema = applyMockupBodies(
+  JSON.parse(await readFile(schemaPath, "utf8")),
+);
+await writeFile(schemaPath, `${JSON.stringify(schema, null, 2)}\n`);
+const pageOperations = new Map();
 await generateFiles({
   input: createOpenAPI({ input: [schemaPath] }),
   output: "./content/docs/api",
@@ -94,11 +100,16 @@ await generateFiles({
     }
     for (const [tag, operations] of groups) {
       const { path, title } = pageFor(tag);
+      pageOperations.set(
+        tag,
+        operations.map(({ path, method }) => ({ path, method })),
+      );
       builder.create({
         type: "page",
         schemaId: builder.id,
         path,
         info: { title },
+        tag: { name: tag },
         operations,
         webhooks: [],
       });
@@ -106,7 +117,10 @@ await generateFiles({
   },
   // These files are generated from the schema, including endpoint descriptions.
   includeDescription: false,
-  frontmatter: (title) => ({ title }),
+  frontmatter: (title, _description, context) => ({
+    title,
+    _openapi: { operations: pageOperations.get(context.tag.name) },
+  }),
 });
 
 console.log(

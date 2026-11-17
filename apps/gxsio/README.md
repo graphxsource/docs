@@ -10,6 +10,7 @@ From the repository root:
 pnpm --filter gxsio dev
 pnpm --filter gxsio types:check
 pnpm --filter gxsio build
+pnpm --filter gxsio test
 ```
 
 ## Content and routes
@@ -35,6 +36,10 @@ pnpm --filter gxsio gxsio:openapi:refresh
 ```
 
 The script writes pages to `content/docs/api`, preserving the root `/docs/api` URLs. Review refreshed schemas and generated content for public suitability before publishing. Commit the snapshot and generated pages together, and update the snapshot date in `content/docs/api/index.mdx`. Builds use the local snapshot.
+
+`scripts/gxsio-openapi.mockups.json` contains the single-view and multiple-view creation DTO schemas missing from upstream Swagger. `scripts/gxsio-openapi-overrides.mjs` adds their required `tObject` request envelopes when the upstream bodies are absent. Generation, refresh, and the renderer share this correction. Existing upstream body definitions take precedence. Review these models against the backend DTOs whenever those contracts change.
+
+Generated pages record their operation selectors in `_openapi.operations`. `getPageText` combines processed Markdown with those operations' parameters, request bodies, responses, and referenced schemas. Markdown copy/export, `llms-full.txt`, and chat indexing use this shared text. Regenerate all API pages after changing operation metadata. The regression tests check contract casing, upstream preservation, per-page operation selection, recursive schema references, and FlexSearch retrieval.
 
 `src/lib/openapi.ts` supplies the production base URL and Bearer authentication requirements omitted by the upstream schema. `src/components/openapi-page.tsx` provides the interactive reference renderer.
 

@@ -98,3 +98,7 @@ The snapshot was downloaded from the development API on November 5, 2026. The li
 
 The downloaded schema has no `servers` entry, doesn't define the `bearer` scheme its V2 operations use, and doesn't declare authentication on V1. This reference fills those gaps when it renders the pages. The snapshot includes English documentation text and the public API-key authentication description.
 
+
+The single-view and multiple-view mockup creation bodies were added from the API's request models on November 17, 2026. Both send a `tObject` envelope. Single-view uses `CompanyName`, a `mockupRequestOrderProduct` array, and a string `supplierId`. Multiple-view uses `companyName`, a `mockupOrderProduct` object, and a numeric `supplierID`. Keep the field spelling shown by each endpoint.
+
+Markdown exports and the documentation assistant include generated endpoint details and the request models used by this reference.
