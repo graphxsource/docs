@@ -46,6 +46,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 
 COPY --from=builder --chown=nextjs:nodejs /app/apps/gxsio/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/apps/gxsio/.next/static ./apps/gxsio/.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/apps/gxsio/public ./apps/gxsio/public
 
 USER nextjs
 
